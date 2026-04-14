@@ -16,7 +16,9 @@ class VueloModel {
         private string $aeropuertoSalida,
         private string $aeropuertoLlegada,
         private string $piloto
-    ) {}
+    ) {
+        VueloEstadoEnum::ensureIsValid($estado);
+    }
 
     // Getters para acceder a los datos
     public function id(): VueloId { 
