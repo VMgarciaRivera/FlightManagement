@@ -9,7 +9,7 @@ class Connection {
             $host = 'localhost';
             $db   = 'sistema_vuelos'; 
             $user = 'postgres';
-            $pass = 'tu_contraseña'; 
+            $pass = '12345'; 
             $port = '5432';
 
             $dsn = "pgsql:host=$host;port=$port;dbname=$db";
