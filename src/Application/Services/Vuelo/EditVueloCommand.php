@@ -18,6 +18,27 @@ class EditVueloCommand {
         private string $piloto
     ) {}
 
+    // Método estático para construir el comando desde un array (JSON decoded)
+    public static function fromArray(array $data): self {
+    return new self(
+        $data['id'],
+        $data['fechaCompra'],
+        $data['fechaSalida'],
+        $data['fechaLlegada'],
+        $data['agenciaViajes'],
+        $data['aerolinea'],
+        $data['numero'],
+        $data['estado'],
+        (float)$data['valor'],
+        $data['cliente'],
+        $data['puesto'],
+        $data['avion'],
+        $data['aeropuertoSalida'],
+        $data['aeropuertoLlegada'],
+        $data['piloto']
+    );
+}
+
     // Getters
     public function getId(): string { return $this->id; }
     public function getFechaCompra(): string { return $this->fechaCompra; }
