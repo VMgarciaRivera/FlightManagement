@@ -4,12 +4,14 @@ class VueloEstadoEnum {
     public const EN_VUELO = 'EN_VUELO';
     public const REALIZADO = 'REALIZADO';
     public const CANCELADO = 'CANCELADO';
+    public const RETRASADO = 'RETRASADO';
 
     private static array $values = [
         self::PROGRAMADO,
         self::EN_VUELO,
         self::REALIZADO,
-        self::CANCELADO
+        self::CANCELADO,
+        self::RETRASADO,
     ];
 
     public static function values(): array {
