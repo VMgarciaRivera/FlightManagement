@@ -24,23 +24,30 @@ $path = $_SERVER['PATH_INFO'] ?? '/';
 // Separamos la ruta por "/" para detectar IDs: /vuelos/123-abc
 $pathParts = explode('/', trim($path, '/'));
 
+//post para login
+if ($pathParts[0] === 'login' && $method === 'POST') {
+    $authController = new AuthController($container);
+    $authController->login();
+    exit;
+}
+
 if ($pathParts[0] === 'vuelos') {
-    
+
     // GET /vuelos -> Listar
     if ($method === 'GET' && !isset($pathParts[1])) {
         $controller->list();
-    } 
-    
+    }
+
     // POST /vuelos -> Crear
     elseif ($method === 'POST') {
         $controller->create();
-    } 
-    
+    }
+
     // DELETE /vuelos/{id} -> Eliminar
     elseif ($method === 'DELETE' && isset($pathParts[1])) {
         $controller->delete($pathParts[1]);
     }
-    
+
     // PUT /vuelos/{id} -> EDITAR
     elseif ($method === 'PUT' && isset($pathParts[1])) {
         $controller->update($pathParts[1]);
