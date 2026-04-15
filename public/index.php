@@ -16,36 +16,36 @@ $loader->register();
 // 3. Inicializamos el Contenedor de Dependencias
 $container = new DependencyContainer();
 
-// --- PRUEBA DE INSERCIÓN ---
-try {
-    // Obtenemos el servicio desde el contenedor
-    $createService = $container->getCreateVueloService();
+$controller = new VueloController($container);
 
-    // Simulamos datos que vendrían de un formulario
-    $datosVuelo = [
-        'id' => '550e8400-e29b-41d4-a716-446655440000', // Un UUID de ejemplo
-        'fechaCompra' => '2026-04-14',
-        'fechaSalida' => '2026-04-15 10:00:00',
-        'fechaLlegada' => '2026-04-15 13:00:00',
-        'agenciaViajes' => 'Viajes Éxito',
-        'aerolinea' => 'Avianca',
-        'numero' => 'AV123',
-        'estado' => 'PROGRAMADO', // Debe coincidir con tu VueloEstadoEnum
-        'valor' => 150.50,
-        'cliente' => 'Juan Perez',
-        'puesto' => '12A',
-        'avion' => 'Airbus A320',
-        'aeropuertoSalida' => 'SKBO',
-        'aeropuertoLlegada' => 'SKRG',
-        'piloto' => 'Cap. Mauricio Arango'
-    ];
+$method = $_SERVER['REQUEST_METHOD'];
+$path = $_SERVER['PATH_INFO'] ?? '/';
 
-    // Creamos el comando y ejecutamos el servicio
-    $command = new CreateVueloCommand($datosVuelo);
-    $createService->execute($command);
+// Separamos la ruta por "/" para detectar IDs: /vuelos/123-abc
+$pathParts = explode('/', trim($path, '/'));
 
-    echo "¡Vuelo creado con éxito!";
-
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+if ($pathParts[0] === 'vuelos') {
+    
+    // GET /vuelos -> Listar
+    if ($method === 'GET' && !isset($pathParts[1])) {
+        $controller->list();
+    } 
+    
+    // POST /vuelos -> Crear
+    elseif ($method === 'POST') {
+        $controller->create();
+    } 
+    
+    // DELETE /vuelos/{id} -> Eliminar
+    elseif ($method === 'DELETE' && isset($pathParts[1])) {
+        $controller->delete($pathParts[1]);
+    }
+    
+    // PUT /vuelos/{id} -> EDITAR
+    elseif ($method === 'PUT' && isset($pathParts[1])) {
+        $controller->update($pathParts[1]);
+    }
+} else {
+    http_response_code(404);
+    echo json_encode(['error' => 'Ruta no encontrada']);
 }
