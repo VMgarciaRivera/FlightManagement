@@ -12,6 +12,14 @@ class DependencyContainer {
         return $this->instances['VueloRepository'];
     }
 
+    //repositorio de usuarios
+    public function getUserRepository(): UserRepository {
+        if (!isset($this->instances['UserRepository'])) {
+            $this->instances['UserRepository'] = new UserRepositoryPostgreSQL();
+        }
+        return $this->instances['UserRepository'];
+    }
+
     // Fabrica el Servicio de Crear Vuelo
     public function getCreateVueloService(): CreateVueloPort {
         return new CreateVueloService($this->getVueloRepository());
@@ -28,6 +36,10 @@ class DependencyContainer {
 
     public function getUpdateVueloService(): EditVueloPort {
         return new EditVueloService($this->getVueloRepository());
+    }
+
+    public function getLoginService(): LoginService {
+        return new LoginService($this->getUserRepository());
     }
     
 }
