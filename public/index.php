@@ -67,6 +67,13 @@ if ($pathParts[0] === 'login' && $method === 'POST') {
     exit;
 }
 
+//post para logout
+if ($pathParts[0] === 'logout' && $method === 'POST') {
+    $authController = new AuthController($container);
+    $authController->logout();
+    exit;
+}
+
 //ruta para forgot password, dejo listo el espacio para luego
 /* if ($pathParts[0] === 'forgot-password' && $method === 'POST') {
     $authController = new AuthController($container);

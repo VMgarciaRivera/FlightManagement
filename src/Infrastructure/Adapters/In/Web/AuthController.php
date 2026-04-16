@@ -26,6 +26,23 @@ class AuthController {
         }
     }
 
+    public function logout(): void {
+    //se busca el token del header para saber quién es el usuario
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
+    preg_match('/Bearer\s(\S+)/', $authHeader, $matches);
+    $token = $matches[1];    
+    // se Busca al usuario por ese token y se le quita el acceso
+    $repo = $this->container->getUserRepository();
+    $user = $repo->findByToken($token);
+    
+    if ($user) {
+        $repo->deleteToken($user->id());
+    }
+
+    echo json_encode(['message' => 'Sesión cerrada exitosamente']);
+}
+
     /* // dejo listo el espacio para el forgotPassword que hare luego
     public function forgotPassword(): void {
         $json = file_get_contents('php://input');

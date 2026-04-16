@@ -4,4 +4,5 @@ interface UserRepository {
     public function updatePassword(string $userId, string $newHash): void;
     public function updateToken(string $userId, string $token): void;
     public function findByToken(string $token): ?User;
+    public function deleteToken(string $userId): void;
 }
