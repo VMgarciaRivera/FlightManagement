@@ -74,12 +74,19 @@ if ($pathParts[0] === 'logout' && $method === 'POST') {
     exit;
 }
 
-//ruta para forgot password, dejo listo el espacio para luego
-/* if ($pathParts[0] === 'forgot-password' && $method === 'POST') {
+// Pedir el cambio de contraseña
+if ($pathParts[0] === 'forgot-password' && $method === 'POST') {
     $authController = new AuthController($container);
     $authController->forgotPassword();
     exit;
-} */
+}
+
+//Ejecutar el cambio de contraseña
+if ($pathParts[0] === 'reset-password' && $method === 'POST') {
+    $authController = new AuthController($container);
+    $authController->resetPassword();
+    exit;
+}
 
 if ($pathParts[0] === 'vuelos') {
 
