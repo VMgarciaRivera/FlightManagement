@@ -4,13 +4,19 @@ class LoginService {
         private UserRepository $repository
     ) {}
 
-    public function execute(string $email, string $password): ?User {
-        $user = $this->repository->findByEmail($email);
+    public function execute(string $email, string $password): string {
+    $user = $this->repository->findByEmail($email);
 
-        if ($user && $user->verifyPassword($password)) {
-            return $user;
-        }
-
-        throw new Exception("Credenciales incorrectas.");
+    if ($user && $user->verifyPassword($password)) {
+        // Generamos un token aleatorio seguro
+        $token = bin2hex(random_bytes(32));
+        
+        // Lo guardamos en el repositorio
+        $this->repository->updateToken($user->id(), $token);
+        
+        return $token;
     }
+
+    throw new Exception("Credenciales incorrectas.");
+}
 }
