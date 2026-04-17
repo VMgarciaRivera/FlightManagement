@@ -1,0 +1,5 @@
+[phases.setup]
+nixPkgs = ["...", "php85", "php85Extensions.pdo_pgsql"]
+
+[variables]
+PHP_EXTENSION_INSTALLER = "pdo_pgsql"
