@@ -64,7 +64,7 @@ $container = new DependencyContainer();
 $controller = new VueloController($container);
 
 $method = $_SERVER['REQUEST_METHOD'];
-$path = $_SERVER['PATH_INFO'] ?? '/';
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Separamos la ruta por "/" para detectar IDs: /vuelos/123-abc
 $pathParts = explode('/', trim($path, '/'));
