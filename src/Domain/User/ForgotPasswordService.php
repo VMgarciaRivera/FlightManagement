@@ -3,7 +3,8 @@
 class ForgotPasswordService {
     public function __construct(
         private UserRepository $userRepository,
-        private EmailSenderInterface $emailSender
+        private EmailSenderInterface $emailSender,
+        private string $appUrl
     ) {}
 
     public function execute(string $email): void {
@@ -23,7 +24,7 @@ class ForgotPasswordService {
         $this->userRepository->updateResetToken($user->id(), $token);
 
         // se construye el enlace (esto es lo que iría al front-end o correo)
-        $resetLink = "http://localhost:8000/reset-password?token=" . $token;
+        $resetLink = $this->appUrl . "/reset-password?token=" . $token;
 
         // Enviamos el "correo" a través del puerto
         $this->emailSender->sendPasswordReset($user->email(), $resetLink);

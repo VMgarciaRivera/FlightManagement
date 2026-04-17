@@ -1,4 +1,9 @@
 <?php
+
+require_once __DIR__ . '/../src/Infrastructure/Config/EnvLoader.php';
+// Se Cargan las variables de entorno desde la raíz
+EnvLoader::load(__DIR__ . '/../src/.env');
+
 // 1. Requerimos los archivos base de la carpeta Common
 require_once __DIR__ . '/../src/Common/Classloader.php';
 require_once __DIR__ . '/../src/Common/DependencyContainer.php';

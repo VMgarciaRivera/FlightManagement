@@ -6,11 +6,11 @@ class Connection {
     public static function getInstance(): PDO {
         if (self::$connection === null) {
             
-            $host = 'localhost';
-            $db   = 'sistema_vuelos'; 
-            $user = 'postgres';
-            $pass = '12345'; 
-            $port = '5432';
+            $host = getenv('DB_HOST') ?: 'localhost';
+            $db   = getenv('DB_NAME');
+            $user = getenv('DB_USER');
+            $pass = getenv('DB_PASS');
+            $port = getenv('DB_PORT') ?: '5432';
 
             $dsn = "pgsql:host=$host;port=$port;dbname=$db";
             

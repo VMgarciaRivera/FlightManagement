@@ -54,9 +54,12 @@ class DependencyContainer
 
     public function getForgotPasswordService(): ForgotPasswordService
     {
+        // Leemos la URL del entorno
+        $baseUrl = getenv('APP_URL') ?: 'http://localhost:8000';
         return new ForgotPasswordService(
             $this->getUserRepository(),
-            new MailEmailSender() // El adaptador de infraestructura
+            new MailEmailSender(), // El adaptador de infraestructura
+            $baseUrl
         );
     }
 
