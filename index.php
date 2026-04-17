@@ -1,16 +1,16 @@
 <?php
 
-require_once __DIR__ . '/../src/Infrastructure/Config/EnvLoader.php';
+require_once __DIR__ . '/src/Infrastructure/Config/EnvLoader.php';
 // Se Cargan las variables de entorno desde la raíz
-$envPath = __DIR__ . '/../.env';
+$envPath = __DIR__ . '/.env';
 
 if (file_exists($envPath)) {
     EnvLoader::load($envPath);
 }
 
 // 1. Requerimos los archivos base de la carpeta Common
-require_once __DIR__ . '/../src/Common/Classloader.php';
-require_once __DIR__ . '/../src/Common/DependencyContainer.php';
+require_once __DIR__ . '/src/Common/Classloader.php';
+require_once __DIR__ . '/src/Common/DependencyContainer.php';
 
 /*
   Verifica que el token enviado sea válido.
@@ -51,10 +51,10 @@ function authenticate(DependencyContainer $container): void {
 // 2. Configuramos y registramos el Autocargador
 // Agregamos todas las rutas donde tenemos clases
 $loader = new ClassLoader([
-    __DIR__ . '/../src/Domain',
-    __DIR__ . '/../src/Application',
-    __DIR__ . '/../src/Infrastructure',
-    __DIR__ . '/../src/Common'
+    __DIR__ . '/src/Domain',
+    __DIR__ . '/src/Application',
+    __DIR__ . '/src/Infrastructure',
+    __DIR__ . '/src/Common'
 ]);
 $loader->register();
 
