@@ -1,5 +1,8 @@
-[phases.setup]
-nixPkgs = ["...", "php85", "php85Extensions.pdo_pgsql"]
-
 [variables]
-PHP_EXTENSION_INSTALLER = "pdo_pgsql"
+    PHP_EXTENSION_INSTALLER = "pdo_pgsql"
+
+[phases.setup]
+    nixPkgs = ["...", "php82", "php82Extensions.pdo_pgsql"]
+
+[phases.build]
+    cmds = ["composer install"]
