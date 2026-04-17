@@ -12,7 +12,8 @@ class Connection {
             $pass = getenv('DB_PASS');
             $port = getenv('DB_PORT') ?: '5432';
 
-            $dsn = "pgsql:host=$host;port=$port;dbname=$db;sslmode=require";
+            $sslMode = ($host === 'localhost' || $host === '127.0.0.1') ? '' : ';sslmode=require';
+            $dsn = "pgsql:host=$host;port=$port;dbname=$db$sslMode";
             
             try {
                 // Creamos la conexión PDO
