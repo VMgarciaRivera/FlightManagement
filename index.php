@@ -69,10 +69,33 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // Separamos la ruta por "/" para detectar IDs: /vuelos/123-abc
 $pathParts = explode('/', trim($path, '/'));
 
+// Ruta para el Frontend (Página de inicio)
+if ($method === 'GET' && ($path === '/' || $path === '/index.html')) {
+    readfile(__DIR__ . '/public/index.html');
+    exit;
+}
+
+// Servir archivos estáticos (CSS y JS)
+if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js)$/', $path)) {
+    $file = __DIR__ . '/public' . $path;
+    if (file_exists($file)) {
+        // Establecer el Content-Type correcto según la extensión
+        if (str_ends_with($path, '.css')) header('Content-Type: text/css');
+        if (str_ends_with($path, '.js')) header('Content-Type: application/javascript');
+        readfile($file);
+        exit;
+    }
+}
+
 //post para login
 if ($pathParts[0] === 'login' && $method === 'POST') {
     $authController = new AuthController($container);
     $authController->login();
+    exit;
+}
+
+if ($method === 'GET' && $path === '/dashboard.html') {
+    readfile(__DIR__ . '/public/dashboard.html');
     exit;
 }
 

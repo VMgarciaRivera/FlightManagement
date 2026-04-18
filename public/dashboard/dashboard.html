@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Mis Vuelos</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="dashboard-body">
+    <nav class="navbar">
+        <h2>Vuelos</h2>
+        <div class="user-info">
+            <span id="userDisplay"></span>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="content-header">
+            <h1>Gestión de Vuelos</h1>
+            <button class="btn-primary" onclick="toggleModal()">+ Nuevo Vuelo</button>
+        </header>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Aerolínea</th>
+                        <th>Aeropuerto Salida</th>
+                        <th>Aeropuerto Llegada</th>
+                        <th>Fecha Compra</th>
+                        <th>Fecha Salida</th>
+                        <th>Fecha Llegada</th>
+                        <th>Agencia de Viajes</th>
+                        <th>Avión</th>
+                        <th>Cliente</th>
+                        <th>Piloto</th>
+                        <th>Puesto</th>
+                        <th>Estado</th>
+                        <th>Valor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="flightsTable"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="vueloModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="toggleModal()">&times;</span>
+        <h3>✈️ Registrar Nuevo Vuelo</h3>
+        <form id="vueloForm">
+            <div class="input-group">
+                <label for="numero">Número de Vuelo</label>
+                <input type="text" id="numero" required placeholder="Ej: LA456">
+            </div>
+            <div class="input-group">
+                <label for="aerolinea">Aerolínea</label>
+                <input type="text" id="aerolinea" required placeholder="Ej: LATAM">
+            </div>
+            <div class="input-group">
+                <label for="aeropuertoSalida">Aeropuerto de Salida</label>
+                <input type="text" id="aeropuertoSalida" maxlength="10" required placeholder="Ej: SKRG">
+            </div>
+            <div class="input-group">
+                <label for="aeropuertoLlegada">Aeropuerto de Llegada</label>
+                <input type="text" id="aeropuertoLlegada" maxlength="10" required placeholder="Ej: SKBO">
+            </div>
+            <div class="input-group">
+                <label for="fechaCompra">Fecha de Compra</label>
+                <input type="date" id="fechaCompra" required>
+            </div>
+            <div class="input-group">
+                <label for="fechaSalida">Fecha y Hora de Salida</label>
+                <input type="datetime-local" id="fechaSalida" required>
+            </div>
+            <div class="input-group">
+                <label for="fechaLlegada">Fecha y Hora de Llegada</label>
+                <input type="datetime-local" id="fechaLlegada" required>
+            </div>
+            <div class="input-group">
+                <label for="agenciaViajes">Agencia de Viajes</label>
+                <input type="text" id="agenciaViajes" required placeholder="Ej: Despegar">
+            </div>
+            <div class="input-group">
+                <label for="avion">Avión</label>
+                <input type="text" id="avion" required placeholder="Ej: Boeing 737">
+            </div>
+            <div class="input-group">
+                <label for="cliente">Cliente</label>
+                <input type="text" id="cliente" required placeholder="Ej: Maria Lopez">
+            </div>
+            <div class="input-group">
+                <label for="piloto">Piloto</label>
+                <input type="text" id="piloto" required placeholder="Ej: Cap. Elena Gomez">
+            </div>
+            <div class="input-group">
+                <label for="puesto">Puesto</label>
+                <input type="text" id="puesto" maxlength="10" required placeholder="Ej: 05C">
+            </div>
+            <div class="input-group">
+                <label for="estado">Estado</label>
+                <select id="estado" required>
+                    <option value="PROGRAMADO">PROGRAMADO</option>
+                    <option value="CONFIRMADO">EN_VUELO</option>
+                    <option value="CANCELADO">REALIZADO</option>
+                    <option value="RETRASADO">CANCELADO</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="valor">Valor</label>
+                <input type="number" id="valor" step="0.01" required placeholder="0.00">
+            </div>
+            <button type="submit" class="btn-primary">Guardar Vuelo</button>
+        </form>
+    </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

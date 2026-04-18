@@ -4,7 +4,6 @@ class ResetPasswordService {
 
     public function execute(string $token, string $newPassword): void {
         $user = $this->repository->findByResetToken($token);
-        
         if (!$user) {
             throw new Exception("Token de recuperación inválido.");
         }
